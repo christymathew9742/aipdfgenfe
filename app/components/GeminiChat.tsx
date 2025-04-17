@@ -13,8 +13,8 @@ import { Button } from '@mui/material';
 
 function PdfExtractor() {
   const [pdfText, setpdfText] = useState('');
-  const [fileUrl, setFileUrl] = useState('https://ucarecdn.com/ff44e58d-dd42-42bb-82d0-5ea1f3f88529/christyupdatedresume512241.pdf');
-  //const [fileUrl, setFileUrl] = useState('');
+  //const [fileUrl, setFileUrl] = useState('https://ucarecdn.com/ff44e58d-dd42-42bb-82d0-5ea1f3f88529/christyupdatedresume512241.pdf');
+  const [fileUrl, setFileUrl] = useState('');
 
   const PDFCO_API_KEY = process.env.NEXT_PUBLIC_PDF_CO;
   const PUBLIC_KEY:any = process.env.NEXT_PUBLIC_PUBLIC_KEY;

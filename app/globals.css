@@ -35,8 +35,8 @@
 }
 
 .rpv-core__page-layer {
-  width: 100%!important;
-  margin-left: 10px!important;
+  width: auto!important;
+  margin-left: 6px!important;
 }
 
 
