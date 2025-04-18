@@ -27,9 +27,7 @@ const PdfExtractor = () => {
   const [hasExtracted, setHasExtracted] = useState(false);
   const [dialogOpen, setDialogOpen]: any = useState(false);
   const bottomRef = useRef<HTMLDivElement | null>(null);
-
   const pageNavigationPluginInstance = pageNavigationPlugin();
-
 
   // const PDFCO_API_KEY :any = process.env.NEXT_PUBLIC_PDF_CO;
   const PDFCO_API_KEY :any = 'christymathew9742@gmail.com_m1mSKhLD9kLCNBMxJfTJNchAyPmlLVgJXGzTuCd7QoznRpTl2xjQQ1pkz9TRaTDD';
