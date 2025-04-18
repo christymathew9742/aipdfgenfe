@@ -8,6 +8,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import { Worker, Viewer } from '@react-pdf-viewer/core';
+import { pageNavigationPlugin } from '@react-pdf-viewer/page-navigation';
 import '@react-pdf-viewer/core/lib/styles/index.css';
 import { Button, CircularProgress } from '@mui/material';
 import axios from 'axios';
@@ -26,6 +27,10 @@ const PdfExtractor = () => {
   const [hasExtracted, setHasExtracted] = useState(false);
   const [dialogOpen, setDialogOpen]: any = useState(false);
   const bottomRef = useRef<HTMLDivElement | null>(null);
+
+  const pageNavigationPluginInstance = pageNavigationPlugin();
+
+
   // const PDFCO_API_KEY :any = process.env.NEXT_PUBLIC_PDF_CO;
   const PDFCO_API_KEY :any = 'christymathew9742@gmail.com_m1mSKhLD9kLCNBMxJfTJNchAyPmlLVgJXGzTuCd7QoznRpTl2xjQQ1pkz9TRaTDD';
   // const PUBLIC_KEY: string = process.env.NEXT_PUBLIC_PUBLIC_KEY || '';
@@ -163,7 +168,7 @@ const PdfExtractor = () => {
           </div>
           <div className=" w-full md:w-1/2 h-[500px]  md:h-screen overflow-auto">
             <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js">
-              <Viewer fileUrl={fileUrl} />
+              <Viewer fileUrl={fileUrl} plugins={[pageNavigationPluginInstance]} initialPage={0} />
             </Worker>
           </div>
         </div>
@@ -172,15 +177,10 @@ const PdfExtractor = () => {
           <div className="w-full relative flex flex-col items-center">
             <FileUploaderRegular
               accept="application/pdf"
+              maxLocalFileSizeBytes={10485760}
               multiple={false}
               onChange={(state) => {
                 const uploadedFile = state?.successEntries?.[0];
-                const fileSize = uploadedFile?.file?.size;
-                if (fileSize !== undefined && fileSize > 8 * 1024 * 1024) {
-                  alert('File must be under 8MB');
-                  setFileUrl('');
-                  return;
-                }
                 if (uploadedFile?.cdnUrl) {
                   setFileUrl(uploadedFile.cdnUrl);
                   setHasExtracted(false);

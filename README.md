@@ -1,36 +1,95 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+==📄 PDF Chat Integration with Gemini AI==
 
-## Getting Started
+This project integrates PDF upload, text extraction, and AI-based training using the Gemini API to create a dynamic chat experience based on PDF content.
 
-First, run the development server:
+==🧠 Overview==
+This system allows users to:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Upload PDFs using UploadCare
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Extract text from those PDFs using PDF.co
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Format extracted text into training data compatible with Gemini AI
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Enable a conversational chat interface based on the trained data
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+==⚙️ Working Procedure==
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+✅ Step 1: Upload PDF using UploadCare
+We use UploadCare to handle the file upload process and obtain a secure CDN URL for the uploaded PDF.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+🔧 Implementation:
+Add UploadCare widget to your frontend.
 
-## Deploy on Vercel
+Set your public API key.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Upon successful upload, you’ll receive a file URL (CDN link).
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+🔗 More info: https://app.uploadcare.com
+
+
+✅ Step 2: Extract Text using PDF.co
+Once you have the PDF URL from UploadCare, use PDF.co to extract text from the file.
+
+🔧 API Request:
+Use a POST request to https://api.pdf.co/v1/pdf/convert/to/text.
+
+This returns the raw text extracted from the PDF.
+
+🔗 More info: https://developer.pdf.co
+
+
+✅ Step 3: Format Text as Gemini Training Data
+Parse the extracted text and manually or programmatically convert it into a Gemini AI-compatible format.
+
+🔧 Training Data Structure:
+[
+  {
+    "input": "What is the document about?",
+    "output": "This PDF contains details about..."
+  },
+  {
+    "input": "List the key highlights.",
+    "output": "1. Feature A\n2. Feature B\n..."
+  }
+]
+You can prepare multiple Q&A pairs from the extracted content for better accuracy.
+
+
+✅ Step 4: Train & Integrate with Gemini AI
+Use Google’s Gemini AI Studio or Gemini API to load your training data.
+
+Options:
+Upload training data manually via Gemini Studio
+
+Use API for real-time integration with your app
+
+🔗 Gemini AI: https://aistudio.google.com/app/prompts
+
+
+🧩 Tools & APIs Used
+
+Tool	       Purpose	Link
+UploadCare	   PDF Upload and CDN File Hosting	https://app.uploadcare.com
+PDF.co	       Text Extraction from Uploaded PDFs	https://developer.pdf.co
+Gemini AI	   Conversational Chat & AI Training	https://aistudio.google.com
+
+🚀 Example Use Case
+A user uploads a product manual.
+
+Text is extracted from the PDF using PDF.co.
+
+The text is structured into question-answer pairs.
+
+Gemini AI is trained with this data.
+
+The user can now chat with Gemini AI and ask questions like:
+
+“What is the product warranty policy?”
+
+“Summarize the installation steps.”
+
+App Deployed URL: https://aipdfgenfe-christy.vercel.app/
+
+================---------=================
