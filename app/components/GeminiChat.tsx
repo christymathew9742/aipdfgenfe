@@ -28,15 +28,12 @@ const PdfExtractor = () => {
   const [dialogOpen, setDialogOpen]: any = useState(false);
   const bottomRef = useRef<HTMLDivElement | null>(null);
   const pageNavigationPluginInstance = pageNavigationPlugin();
-
   // const PDFCO_API_KEY :any = process.env.NEXT_PUBLIC_PDF_CO;
-  const PDFCO_API_KEY :any = 'christymathew9742@gmail.com_m1mSKhLD9kLCNBMxJfTJNchAyPmlLVgJXGzTuCd7QoznRpTl2xjQQ1pkz9TRaTDD';
+  const PDFCO_API_KEY :any = 'anishakoodakkattu12@gmail.com_cSMBevQxObRrJEizjleLD7UqfmiNTivFSMTPIbXEOW7cw6IfCXAAJrxbf68RylfQ';
   // const PUBLIC_KEY: string = process.env.NEXT_PUBLIC_PUBLIC_KEY || '';
   const PUBLIC_KEY = 'fb51f9b92d777d31a55e' ;
-  
   const isMobile = useMediaQuery({ maxWidth: 767 });
  
-
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [chatHistory]);
