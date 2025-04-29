@@ -8,12 +8,22 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import { Stack, Typography } from '@mui/material';
+import {constantsText} from '@/app/constant/constant';
 
 interface AlertDialogProps {
   open: boolean;
   onClose: () => void;
   onAgree: () => void;
 }
+
+const {
+  BOT:{
+    UPLOAD_HD,
+    UPLOAD_MSG,
+    BUTTON_TEXT,
+    NEW_UPLOAD,
+  },
+} = constantsText;
 
 const AlertDialog: React.FC<AlertDialogProps> = ({ open, onClose, onAgree }) => {
   const handleAgree = () => {
@@ -39,32 +49,32 @@ const AlertDialog: React.FC<AlertDialogProps> = ({ open, onClose, onAgree }) => 
         <Stack direction="row" alignItems="center" spacing={1}>
           <ErrorOutlineIcon color="error" />
           <Typography variant="h6" component="span">
-            Upload New PDF?
+            {UPLOAD_HD}
           </Typography>
         </Stack>
       </DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-description" sx={{ fontSize: '16px',color:'black' }}>
-          This will end your current chat session. Are you sure you want to upload a new PDF?
+          {UPLOAD_MSG}
         </DialogContentText>
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose} sx={{ borderRadius: '4px',padding:'10px', }}>
-          Cancel
+          {BUTTON_TEXT}
         </Button>
         <Button
           onClick={handleAgree}
           sx={{
             borderRadius: '4px',
-            backgroundColor: '#9333ea',
+            backgroundColor: '#b400aa',
             color: 'white',
             padding:'10px',
             '&:hover': {
-              backgroundColor: '#6a1b9a',
+              backgroundColor: '#c960c4',
             },
           }}
         >
-          Upload New PDF
+          {NEW_UPLOAD}
         </Button>
       </DialogActions>
     </Dialog>

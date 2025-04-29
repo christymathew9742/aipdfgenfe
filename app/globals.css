@@ -5,38 +5,12 @@
   --foreground: #171717;
 }
 
-@theme inline {
+/* @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
+} */
 
-.p-uploader uc-drop-area > button {
-  background-color: #ffff;
-}
-
-.p-uploader{
-  position: relative;
-  background-color: #ffff;
-  border-radius: 6px;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
-  0 4px 6px -4px rgba(0, 0, 0, 0.1);
-}
-
-.p-uploader uc-icon > svg{
-  margin: 0 auto;
-  color: rgb(196, 65, 203);
-}
-
-.p-uploader span {
-  font-size: larger;
-  font-weight: normal;
-}
-
-.rpv-core__page-layer {
-  width: auto!important;
-  margin-left: 6px!important;
-}
 
 
