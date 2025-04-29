@@ -3,6 +3,7 @@ import "./globals.css";
 import ClientProvider from "./clientProvider";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Head from 'next/head';
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -12,6 +13,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
+       <Head>
+        <link rel="icon" href="/favicon.jpeg" />
+      </Head>
       <body>
         <ClientProvider>
             <ToastContainer/>
