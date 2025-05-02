@@ -67,6 +67,7 @@ const PdfExtractor = () => {
     const [file, setFile] = useState<File | null>(null);
     const [uploadProgress, setUploadProgress]:any = useState<number>(0);
     const [error, setError] = useState('');
+    const [serverError, setServerError] = useState('');
     const [isUploading, setIsUploading] = useState<boolean>(false);
     const [pending, setPending] = useState<boolean>(true);
     const [pdfStatus, setPdfStatus] = useState<string>('')
@@ -110,6 +111,12 @@ const PdfExtractor = () => {
       
         socket.emit('join', fileId);
 
+        socket.on('internal_server_error', (data) => {
+            if (data.uploadedFileId === fileId) {
+                setServerError(data.Error);
+            }
+        });
+
         socket.on('extraction_progress', (data) => {
             if (data.uploadedFileId === fileId) {
                 setProgress(data.progress);
@@ -124,6 +131,7 @@ const PdfExtractor = () => {
         });
       
         return () => {
+            socket.off('internal_server_error');
             socket.off('extraction_progress');
             socket.off('extraction_complete');
         };
@@ -263,15 +271,24 @@ const PdfExtractor = () => {
                                 <div key={index} className='mb-8 text-sm'>
                                     <p className="bg-white p-3 rounded shadow mb-2 relative w-[98%]">{item.question}<ArrowRightIcon className='text-white absolute -top-[6px] -right-[23px] !text-[40px]' /></p>
                                     {item.answer === null ? (
-                                        <Image
-                                            src="/image/gif/typing.gif"
-                                            alt="Typing"
-                                            width={60}
-                                            height={10}
-                                            className='-ml-2'
-                                        />
+                                        serverError ? (
+                                            <p className="bg-red-100 text-red-700 border border-red-400 rounded px-4 py-3 text-sm w-[98%]">
+                                                {serverError}
+                                            </p>
+                                        ) : (
+                                            <Image
+                                                src="/image/gif/typing.gif"
+                                                alt="Typing"
+                                                width={60}
+                                                height={10}
+                                                className="-ml-2"
+                                            />
+                                        )
                                     ) : (
-                                        <p className="bg-blue-200 p-3 rounded shadow whitespace-pre-line relative w-[98%]">{item.answer}<ArrowLeftIcon className='text-blue-200 absolute -top-[2px] -left-[23px] !text-[40px]' /></p>
+                                        <p className="bg-blue-200 p-3 rounded shadow whitespace-pre-line relative w-[98%]">
+                                            {item.answer}
+                                            <ArrowLeftIcon className="text-blue-200 absolute -top-[2px] -left-[23px] !text-[40px]" />
+                                        </p>
                                     )}
                                 </div>
                             ))}
@@ -286,6 +303,7 @@ const PdfExtractor = () => {
                             onChange={(e) => setCurrentQuestion(e.target.value)}
                             className="flex-grow p-2 border !rounded-[4px] mr-4"
                             onKeyDown={(e) => e.key === 'Enter' && handleAsk()}
+                            disabled={isPending || pending}
                         />
                         <Button
                             variant="contained"
